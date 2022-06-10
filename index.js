@@ -1,3 +1,6 @@
+// audio alert
+alert("click game to enable audio effects")
+
 // access html element in js
 const canvas = document.querySelector('canvas')
 // allows drawing anything on canvas (c is short for context)
