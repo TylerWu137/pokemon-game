@@ -10,11 +10,6 @@ canvas.width = 1024
 canvas.height = 576
 canvas.style = "position: absolute; top: 100px; left: 0px; right: 0px; bottom: 100px; margin: auto"
 
-
-/*
-    Collision Detection
-*/
-
 // creating collision blocks
 const offset = {
     x: -256,
@@ -38,18 +33,6 @@ collisionsMap.forEach((row, i) => {
         }))
     }})
 })
-
-// collision detection
-const movables = [background, ...boundaries, foreground, ...battleZones]    // ... -> spread operator - returns all elements in array
-function rectangularCollision({rectangle1, rectangle2}) {
-    // rectangle1 = player; reactangle2 = boundary
-    return (
-        rectangle1.position.x + rectangle1.width >= rectangle2.position.x && 
-        rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
-        rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
-        rectangle1.position.y + rectangle1.height >= rectangle2.position.y
-    )
-}
 
 /*
     creating battle zones
@@ -149,6 +132,18 @@ const keys = {
 
 const battle = {
     initiated: false
+}
+
+// collision detection
+const movables = [background, ...boundaries, foreground, ...battleZones]    // ... -> spread operator - returns all elements in array
+function rectangularCollision({rectangle1, rectangle2}) {
+    // rectangle1 = player; reactangle2 = boundary
+    return (
+        rectangle1.position.x + rectangle1.width >= rectangle2.position.x && 
+        rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
+        rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
+        rectangle1.position.y + rectangle1.height >= rectangle2.position.y
+    )
 }
 
 /* 
