@@ -1,7 +1,19 @@
+/*
+    html set-up
+*/
 // access html element in js
 const canvas = document.querySelector('canvas')
 // allows drawing anything on canvas (c is short for context)
 const c = canvas.getContext('2d')
+// changing canvas dimensions + location for prettiness
+canvas.width = 1024
+canvas.height = 576
+canvas.style = "position: absolute; top: 100px; left: 0px; right: 0px; bottom: 100px; margin: auto"
+
+
+/*
+    Collision Detection
+*/
 
 // creating collision blocks
 const offset = {
@@ -27,7 +39,21 @@ collisionsMap.forEach((row, i) => {
     }})
 })
 
-// creating battle zones
+// collision detection
+const movables = [background, ...boundaries, foreground, ...battleZones]    // ... -> spread operator - returns all elements in array
+function rectangularCollision({rectangle1, rectangle2}) {
+    // rectangle1 = player; reactangle2 = boundary
+    return (
+        rectangle1.position.x + rectangle1.width >= rectangle2.position.x && 
+        rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
+        rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
+        rectangle1.position.y + rectangle1.height >= rectangle2.position.y
+    )
+}
+
+/*
+    creating battle zones
+*/
 const battleZonesMap = []
 for (let i = 0; i < battleZonesData.length; i+=70) {
     battleZonesMap.push(battleZonesData.slice(i,70 + i))
@@ -46,11 +72,9 @@ battleZonesMap.forEach((row, i) => {
     }})
 })
 
-// changing canvas dimensions + location for prettiness
-canvas.width = 1024
-canvas.height = 576
-canvas.style = "position: absolute; top: 100px; left: 0px; right: 0px; bottom: 100px; margin: auto"
-
+/*
+    Displaying images (background, foreground, and Sprites)
+*/
 // creating pellet town background + player images
 const image = new Image()
 image.src = './img/Pellet Town.png'
@@ -123,23 +147,13 @@ const keys = {
     }
 }
 
-// collision detection
-const movables = [background, ...boundaries, foreground, ...battleZones]    // ... -> spread operator - returns all elements in array
-function rectangularCollision({rectangle1, rectangle2}) {
-    // rectangle1 = player; reactangle2 = boundary
-    return (
-        rectangle1.position.x + rectangle1.width >= rectangle2.position.x && 
-        rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
-        rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
-        rectangle1.position.y + rectangle1.height >= rectangle2.position.y
-    )
-}
-
 const battle = {
     initiated: false
 }
 
-// animation
+/* 
+    animation
+*/
 function animate() {
     const animationId = window.requestAnimationFrame(animate)
     // display background
@@ -163,7 +177,7 @@ function animate() {
 
     if (battle.initiated) return
 
-    // battle activation
+    // battle activation occurs when the player is moving in a battle zone
     if(keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
         for(let i = 0; i < battleZones.length; i++) {
             // detect for collision
@@ -225,8 +239,7 @@ function animate() {
     }
 
     // moving player
-    //up
-    if (keys.w.pressed && lastKey === 'w') {
+    if (keys.w.pressed && lastKey === 'w') {    // up
         player.animate = true
         player.image = player.sprites.up
         for(let i = 0; i < boundaries.length; i++) {
@@ -249,8 +262,7 @@ function animate() {
             movables.forEach((movable) => {
                 movable.position.y += 3
             })
-    // left
-    } else if (keys.a.pressed && lastKey === 'a') {
+    } else if (keys.a.pressed && lastKey === 'a') { // left
         player.animate = true
         player.image = player.sprites.left
         for(let i = 0; i < boundaries.length; i++) {
@@ -273,9 +285,7 @@ function animate() {
             movables.forEach((movable) => {
                 movable.position.x += 3
             })
-    }
-    // down
-    else if (keys.s.pressed && lastKey === 's') {
+    } else if (keys.s.pressed && lastKey === 's') {   // down
         player.animate = true
         player.image = player.sprites.down
         for(let i = 0; i < boundaries.length; i++) {
@@ -298,9 +308,7 @@ function animate() {
             movables.forEach((movable) => {
                 movable.position.y -= 3
             })
-    }
-    // right
-    else if (keys.d.pressed && lastKey === 'd') {
+    } else if (keys.d.pressed && lastKey === 'd') {   // right
         player.animate = true
         player.image = player.sprites.right
         for(let i = 0; i < boundaries.length; i++) {
