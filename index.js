@@ -13,7 +13,7 @@ canvas.style = "position: absolute; top: 10px; left: 10px; bottom: 10px;"
 // creating collision blocks
 const offset = {
     x: -256,
-    y: -450
+    y: -475
 }
 
 const collisionsMap = []
@@ -253,10 +253,12 @@ function animate() {
                 break
             }
         }
-        if (moving)
+        if (moving) {
+            console.log("HIIII")
             movables.forEach((movable) => {
                 movable.position.y += 3
             })
+        }
     } else if (keys.a.pressed && lastKey === 'a') { // left
         player.animate = true
         player.image = player.sprites.left

@@ -23,6 +23,7 @@ function initBattle() { // initialize battle
     document.querySelector('#dialogueBox').style.display = 'none'
     document.querySelector('#enemyHealthBar').style.width = '100%'
     document.querySelector('#playerHealthBar').style.width = '100%'
+    document.querySelector('#attacksBox').style.display = 'grid'
     document.querySelector('#attacksBox').replaceChildren()
     
     
@@ -134,7 +135,10 @@ function animateBattle() {
 
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
     if(queue.length > 0) {
-        queue[0]()  // draggle's turn
-        queue.shift()   // removes draggle's turn
-    } else e.currentTarget.style.display = 'none'
+        queue[0]()  //  turn
+        queue.shift()   // removes turn
+    } else {
+        e.currentTarget.style.display = 'none'
+        document.querySelector('#attacksBox').style.display = 'grid'
+    }
 })

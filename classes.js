@@ -113,6 +113,7 @@ class Monster extends Sprite {
         document.querySelector('#dialogueBox').style.display = 'block'
         document.querySelector('#dialogueBox').innerHTML = 
             this.name + ' used ' + attack.name
+        document.querySelector('#attacksBox').style.display = 'none'
         // updates health bar of recipient
         let healthBar = '#enemyHealthBar'
         if(this.isEnemy) healthBar = '#playerHealthBar'
@@ -212,7 +213,7 @@ class Boundary {
     static height = 48
     constructor({position}) {
         this.position = position
-        this.width =48
+        this.width = 48
         this.height = 48
     }
 
