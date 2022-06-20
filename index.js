@@ -7,8 +7,8 @@ const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 // changing canvas dimensions + location for prettiness
 canvas.width = 1024
-canvas.height = 576
-canvas.style = "position: absolute; top: 100px; left: 0px; right: 0px; bottom: 100px; margin: auto"
+canvas.height = 556
+canvas.style = "position: absolute; top: 10px; left: 10px; bottom: 10px;"
 
 // creating collision blocks
 const offset = {
@@ -328,7 +328,7 @@ function animate() {
             })
     }
 }
-animate()
+//animate()
 
 // stuff for player movement
 let lastKey = ''

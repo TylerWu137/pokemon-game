@@ -35,12 +35,17 @@ function initBattle() { // initialize battle
     emby.attacks.forEach((attack) => {
         const button = document.createElement('button')
         button.innerHTML = attack.name;
-        button.style = 'font-weight: bold'
+        button.style.backgroundColor = attack.color
         document.querySelector('#attacksBox').append(button)
+        const divider = document.createElement('div')
+        divider.style = 'height: 10px'
+        document.querySelector('#attacksBox').append(divider)
+
     })
 
     // battle sequence
     document.querySelectorAll('button').forEach(button => {
+
         // Attacks when clicking buttons
         button.addEventListener('click', (e) => {
             // emby's attack
@@ -110,13 +115,6 @@ function initBattle() { // initialize battle
                 return
             }
         })
-
-        // display attack type
-        button.addEventListener('mouseenter', (e) => {
-            const selectedAttack = attacks[e.currentTarget.innerHTML]
-            document.querySelector('#attackType').innerHTML = selectedAttack.type
-            document.querySelector('#attackType').style.color = selectedAttack.color
-        })
     })
 }
 
@@ -129,6 +127,9 @@ function animateBattle() {
         sprite.draw()
     })
 }
+
+initBattle()
+animateBattle()
 
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
     if(queue.length > 0) {

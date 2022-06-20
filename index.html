@@ -17,16 +17,28 @@
         button {
             border: 0;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 12px;
+            padding: 10px;
+            border: 2px solid black;
         }
 
         button:hover {
-            background-color: #ddd;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
         }
     </style>
 </head>
 
 <div>
+    <!-- Help Screen -->
+    <div
+        id="helpScreen"
+        style="
+            position: absolute; 
+        "
+    >
+
+    </div>
+
     <canvas></canvas>
 
     <!-- flashing sscreen -->
@@ -34,14 +46,12 @@
         id="overlappingDiv"
         style="
             position: absolute; 
-            background-color: black; 
+            background-color: purple; 
             width: 1024px; 
-            height: 576px; 
-            margin: auto;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
+            height: 556px; 
+            top: 10px;
+            left: 10px;
+            bottom: 10px;
             opacity: 0;
             pointer-events: none;
             z-index: 15;"    
@@ -49,20 +59,21 @@
         <!-- z-index: move div forward (in front of 15 other divs)-->
     </div>
 
+    <!-- Battle Scene -->
     <div id="userInterface" style="display: none;">
         <!-- Health bar of draggle -->
         <div 
             style="
                 background-color: white;
-                width: 250px;
+                width: 200px;
                 position: relative;
-                margin-top: 45px;
-                margin-left: 170px;
-                border: 4px black solid;
-                padding: 12px;
+                top: 30px;
+                left: 750px;
+                border: 3px black solid;
+                padding: 10px;
             "
         >
-            <h1 style="font-size: 16px">Draggle</h1>
+            <h1 style="font-size: 14px">Draggle</h1>
             <div style="position: relative">
                 <div style="height: 5px; background-color: #ccc; margin-top: 10px"></div>
                 <div 
@@ -83,14 +94,14 @@
         <div 
             style="
                 background-color: white;
-                width: 250px;
+                width: 200px;
                 position: relative;
-                top: 217px;
-                left: 820px;
-                border: 4px black solid;
-                padding: 12px;
+                top: 430px;
+                left: 50px;
+                border: 3px black solid;
+                padding: 10px;
         ">
-            <h1 style="font-size: 16px">Emby</h1>
+            <h1 style="font-size: 14px">Emby</h1>
             <div style="position: relative">
                 <div style="height: 5px; background-color: #ccc; margin-top: 10px"></div>
                 <div 
@@ -107,60 +118,42 @@
             </div>
         </div>
 
+        <!-- Attack Selection -->
         <div 
+            id="attacksBox"
+            style="
+                position: relative;
+                width: 350;
+                height: auto;
+                top: 260;
+                left: 650;
+                display: grid;
+                grid-column: 1;
+                grid-row: 4;
+            "
+        >
+        </div>
+
+        <!-- Dialogue -->
+        <div 
+            id="dialogueBox"
             style="
                 background-color: white; 
                 position: absolute; 
-                width: 1024px; 
+                width: 994px; 
                 height: 140px; 
-                margin: auto;
-                left: 0px;
+                left: 10px;
                 right: 0px;
-                bottom: 17px;
+                top: 388px;
+                font-size: 12px;
                 border-top: 4px black solid;
-                display: flex;
+                padding: 15px;
+                display: none;
+                cursor: pointer;
             "
         >
-            <!-- Attack Bar -->
-            <!-- attacks -->
-            <div 
-                id="attacksBox"
-                style="
-                    width: 66.66%; 
-                    display: grid; 
-                    grid-template-columns: repeat(2, 1fr)
-                "
-            >
-            </div>
-            <!-- attack type -->
-            <div style="
-                display: flex; 
-                align-items: center; 
-                justify-content: center; 
-                width: 33.33%;
-                border-left: 4px black solid"
-            >
-                <h1 id="attackType" style="font-size: 16px;">Attack Type</h1>
-            </div>
-
-            <!-- Dialogue -->
-            <div 
-                id="dialogueBox"
-                style="
-                    position: absolute; 
-                    top: 0; 
-                    right: 0; 
-                    bottom: 0; 
-                    left: 0; 
-                    background-color: white;
-                    padding: 12px;
-                    display: none;
-                    cursor: pointer;
-                "
-            >
-                dhewufewf
-            </div>
         </div>
+
     </div>
 </div>
 
