@@ -328,7 +328,7 @@ function animate() {
             })
     }
 }
-//animate()
+animate()
 
 // stuff for player movement
 let lastKey = ''
