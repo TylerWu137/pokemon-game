@@ -1,37 +1,3 @@
-/* TO DO LIST
-    Audio
-        wait until victory audio finishes and then player can click
-        audio play continuously - repeats
-    Battle
-        Attack speed - turns
-        Limit on number of uses of certain attacks
-        Effect of monsters different stats
-        Add better AI for enemy
-        Add different enemies once more monsters are created
-            Add rarity aspect
-    Monsters
-        Add new ones
-        Different stats
-            HP
-            Defense
-            Attack
-            Speed
-        Leveling (XP)
-    Player
-        Leveling
-        Custom looks
-        Monster following player around on map
-    Map
-        Different islands
-        People - friends and foes
-    Inventory
-        Monster Inventory
-        Monster Book (show what monsters that do and don't have)
-    Storyline
-        Initial graphics
-        Progress
-*/
-
 /*
     html set-up
 */
