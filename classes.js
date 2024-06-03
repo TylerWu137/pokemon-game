@@ -1,4 +1,5 @@
 // Sprite class -> background, foreground, + other objects (player, etc.)
+// change attacks to be more general and not switch cases
 class Sprite {
     constructor({ 
         position, 
@@ -23,7 +24,7 @@ class Sprite {
         this.rotation = rotation
     }
 
-    draw() {
+    draw(spriteSheet) {
         c.save()  // using global canvas properties only affect code inside here
         c.translate(
             this.position.x + this.width / 2, 
@@ -36,19 +37,19 @@ class Sprite {
         )
         c.globalAlpha = this.opacity
         c.drawImage (
-            this.image,    // object
+            spriteSheet,    // object
             this.frames.val * this.width,              // cropping x1
             0,              // cropping y1
-            this.image.width / this.frames.max,    // cropping x2
-            this.image.height,     // cropping y2
+            spriteSheet.width / this.frames.max,    // cropping x2
+            spriteSheet.height,     // cropping y2
             this.position.x,
             this.position.y,
-            this.image.width / this.frames.max,    // image width  
-            this.image.height      // image height
+            spriteSheet.width / this.frames.max,    // image width  
+            spriteSheet.height      // image height
         )
         c.restore()
         
-        // displaying differentt movement frames
+        // displaying different movement frames
         if (!this.animate) return
 
         if (this.frames.max > 1) {
@@ -64,19 +65,21 @@ class Sprite {
 
 class Monster extends Sprite {
     constructor({
-        position, 
+        position = { x: 0, y: 0},
         velocity, 
         image, 
+        backImage,
         frames = {max: 1, hold: 10}, 
         sprites = [], 
         animate = false,
         rotation = 0,
         isEnemy = false,
         name,
+        type,
         attacks
     }) {
         super({
-            position, 
+            position,
             velocity, 
             image, 
             frames,
@@ -84,9 +87,16 @@ class Monster extends Sprite {
             animate,
             rotation,
         })
+        this.backImage = new Image()
+        this.backImage.onload = () => {
+            this.width = this.backImage.width / this.frames.max
+            this.height = this.backImage.height
+        }
+        this.backImage.src = backImage.src
         this.health = 100
         this.isEnemy = isEnemy
         this.name = name
+        this.type = type
         this.attacks = attacks
     }
 
@@ -123,7 +133,7 @@ class Monster extends Sprite {
         if (this.isEnemy) rotation = -2.2
 
         switch (attack.name) {
-            case'Tackle':   // attack = tackle
+            case 'Tackle':   // attack = tackle
             const tl = gsap.timeline()
 
             let movementDistance = 20
@@ -203,6 +213,12 @@ class Monster extends Sprite {
                         renderedSprites.splice(1, 1)
                     }
                 })
+            break
+
+            default:
+            gsap.to(healthBar, {
+                width: recipient.health + '%'
+            })
             break
         }
     }

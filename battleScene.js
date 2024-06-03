@@ -10,8 +10,8 @@ const battleBackground = new Sprite({
 })
 
 // create monsters
-let emby
-let draggle
+let allyMon
+let enemyMon
 let renderedSprites
 let battleAnimationId
 let queue
@@ -26,17 +26,22 @@ function initBattle() { // initialize battle
     document.querySelector('#attacksBox').style.display = 'grid'
     document.querySelector('#attacksBox').replaceChildren()
     
-    
-    emby = new Monster(monsters.Emby)
-    draggle = new Monster(monsters.Draggle)
-    renderedSprites = [draggle, emby]
+    const keys = Object.keys(monsters)
+    allyMon = new Monster(monsters[keys[Math.floor(Math.random() * keys.length)]])
+    document.querySelector('#allyName').innerHTML = allyMon.name
+    allyMon.position = {x:280,y:325}
+    enemyMon = new Monster(monsters[keys[Math.floor(Math.random() * keys.length)]])
+    document.querySelector('#enemyName').innerHTML = enemyMon.name
+    enemyMon.position = {x:795,y:100}
+    enemyMon.isEnemy = true
+    renderedSprites = [enemyMon, allyMon]
     queue = []
 
 
-    emby.attacks.forEach((attack) => {
+    allyMon.attacks.forEach((attack) => {
         const button = document.createElement('button')
-        button.innerHTML = attack.name;
-        button.style.backgroundColor = attack.color
+        button.innerHTML = attack.name
+        button.style.backgroundColor = attack.type.color
         document.querySelector('#attacksBox').append(button)
         const divider = document.createElement('div')
         divider.style = 'height: 10px'
@@ -49,19 +54,19 @@ function initBattle() { // initialize battle
 
         // Attacks when clicking buttons
         button.addEventListener('click', (e) => {
-            // emby's attack
+            // allyMon's attack
             const selectedAttack = attacks[e.currentTarget.innerHTML]
-            emby.attack({
+            allyMon.attack({
                 attack: selectedAttack,
-                recipient: draggle,
+                recipient: enemyMon,
                 renderedSprites
             })
 
-            // if draggle faints, draggle stops attacking/disappears
+            // if enemyMon faints, enemyMon stops attacking/disappears
             // CHANGE INTO FUNCTION
-            if(draggle.health <= 0) {
+            if(enemyMon.health <= 0) {
                 queue.push(() => {
-                    draggle.faint()
+                    enemyMon.faint()
                 })
                 queue.push(() => {
                     gsap.to('#overlappingDiv', {
@@ -81,22 +86,22 @@ function initBattle() { // initialize battle
                 return
             }
 
-            // randomizing draggle's attack
-            const randomAttack = draggle.attacks[Math.floor(Math.random() * draggle.attacks.length)]
+            // randomizing enemyMon's attack
+            const randomAttack = enemyMon.attacks[Math.floor(Math.random() * enemyMon.attacks.length)]
 
             queue.push(() => {
-                draggle.attack({
+                enemyMon.attack({
                     attack: randomAttack,
-                    recipient: emby,
+                    recipient: allyMon,
                     renderedSprites
                 })
             })
 
-            // if emby faints, emby stops attacking/disappears
+            // if allyMon faints, allyMon stops attacking/disappears
             // CHANGE INTO FUNCTION
-            if(emby.health <= 0) {
+            if(allyMon.health <= 0) {
                 queue.push(() => {
-                    emby.faint()
+                    allyMon.faint()
                 })
                 queue.push(() => {
                     gsap.to('#overlappingDiv', {
@@ -122,11 +127,9 @@ function initBattle() { // initialize battle
 // animate battle
 function animateBattle() {
     battleAnimationId = window.requestAnimationFrame(animateBattle)
-    battleBackground.draw()
-
-    renderedSprites.forEach((sprite) => {
-        sprite.draw()
-    })
+    battleBackground.draw(battleBackground.image)
+    allyMon.draw(allyMon.backImage)
+    enemyMon.draw(enemyMon.image)
 }
 
 // for working on battle sequence

@@ -186,20 +186,20 @@ function rectangularCollision({rectangle1, rectangle2}) {
 function animate() {
     const animationId = window.requestAnimationFrame(animate)
     // display background
-    background.draw()
+    background.draw(background.image)
 
     // display boundaries
     boundaries.forEach(boundary => {
         boundary.draw()
     })
     battleZones.forEach(battleZone => {
-        battleZone.draw()
+        battleZone.draw(image)
     })
     // display player
-    player.draw()
+    player.draw(player.image)
 
     // display foreground objects
-    foreground.draw()
+    foreground.draw(foreground.image)
 
     let moving = true
     player.animate = false
@@ -211,7 +211,7 @@ function animate() {
         for(let i = 0; i < battleZones.length; i++) {
             // detect for collision
             const battleZone = battleZones[i]
-            // ensure battle initiates if most of player if on battle zone
+            // ensure battle initiates if most of player is on battle zone
             const overlappingArea = 
                 (Math.min(
                     player.position.x + player.width,
@@ -288,7 +288,6 @@ function animate() {
             }
         }
         if (moving) {
-            console.log("HIIII")
             movables.forEach((movable) => {
                 movable.position.y += 3
             })
