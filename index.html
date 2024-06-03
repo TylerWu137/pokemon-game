@@ -1,5 +1,4 @@
 <head>
-    <!--rel="preconnect" improves user experience by initiating connection from another origin-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -24,7 +23,7 @@
         }
 
         button:hover {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.075) 0 0);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
         }
     </style>
 </head>
@@ -42,7 +41,7 @@
 
     <canvas></canvas>
 
-    <!-- flashing screen -->
+    <!-- flashing sscreen -->
     <div 
         id="overlappingDiv"
         style="
@@ -62,7 +61,7 @@
 
     <!-- Battle Scene -->
     <div id="userInterface" style="display: none;">
-        <!-- Health bar of enemy mon -->
+        <!-- Health bar of draggle -->
         <div 
             style="
                 background-color: white;
@@ -74,7 +73,7 @@
                 padding: 10px;
             "
         >
-            <h1 id="enemyName" style="font-size: 14px"></h1>
+            <h1 style="font-size: 14px">Draggle</h1>
             <div style="position: relative">
                 <div style="height: 5px; background-color: #ccc; margin-top: 10px"></div>
                 <div 
@@ -91,7 +90,7 @@
             </div>
         </div>
 
-        <!-- Health bar of user mon -->
+        <!-- Health bar of emby -->
         <div 
             style="
                 background-color: white;
@@ -102,7 +101,7 @@
                 border: 3px black solid;
                 padding: 10px;
         ">
-            <h1 id="allyName" style="font-size: 14px"></h1>
+            <h1 style="font-size: 14px">Emby</h1>
             <div style="position: relative">
                 <div style="height: 5px; background-color: #ccc; margin-top: 10px"></div>
                 <div 
@@ -165,7 +164,6 @@
 <script src="data/audio.js"></script>
 <script src="data/collisions.js"></script>
 <script src="data/battleZones.js"></script>
-<script src="data/types.js"></script>
 <script src="data/attacks.js"></script>
 <script src="data/monsters.js"></script>
 <script src="classes.js"></script>
